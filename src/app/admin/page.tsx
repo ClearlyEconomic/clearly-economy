@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Container } from "@/components/layout/Container";
+import { SESSION_COOKIE_NAME, verifySessionCookieValue } from "@/lib/auth/session";
 
 export const metadata: Metadata = {
   title: "관리자",
@@ -21,21 +23,30 @@ const OTHER_CATEGORIES = [
   { category: "resource", label: "기술자료", icon: "🗂️" },
 ] as const;
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const cookieStore = await cookies();
+  const session = await verifySessionCookieValue(cookieStore.get(SESSION_COOKIE_NAME)?.value);
+
   return (
     <Container className="flex flex-col gap-10 py-16">
-      <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-        ⚠ 개발 전용 관리자 페이지입니다. 로그인 보호가 없으니 배포 전 반드시 인증을 추가하세요.
-      </div>
-
-      <div>
-        <p className="text-sm font-bold uppercase tracking-wider text-blue-950">ADMIN</p>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          관리자
-        </h1>
-        <p className="mt-2 text-slate-500">
-          새 콘텐츠를 작성하고 MDX 파일로 저장하는 CMS입니다.
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-bold uppercase tracking-wider text-blue-950">ADMIN</p>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            관리자
+          </h1>
+          <p className="mt-2 text-slate-500">
+            새 콘텐츠를 작성하고 MDX 파일로 저장하는 CMS입니다.
+          </p>
+        </div>
+        {session && (
+          <div className="flex shrink-0 flex-col items-end gap-1 text-sm">
+            <span className="text-slate-400">{session.login}님으로 로그인됨</span>
+            <a href="/api/auth/logout" className="font-semibold text-blue-950 hover:underline">
+              로그아웃
+            </a>
+          </div>
+        )}
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

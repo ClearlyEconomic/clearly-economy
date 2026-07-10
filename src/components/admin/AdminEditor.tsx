@@ -246,10 +246,6 @@ export function AdminEditor({ initialCategory }: { initialCategory: Category }) 
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-        ⚠ 개발 전용 관리자 페이지입니다. 로그인 보호가 없으니 배포 전 반드시 인증을 추가하세요.
-      </div>
-
       {/* 모바일 전용 탭 전환 (md 미만에서만 보임) */}
       <div className="flex gap-2 md:hidden">
         <button
