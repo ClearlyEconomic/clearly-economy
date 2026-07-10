@@ -11,7 +11,7 @@ export function PostCard({ post }: { post: PostMeta }) {
   return (
     <Link
       href={`/${post.category}/${post.slug}`}
-      className={`group flex flex-col overflow-hidden rounded-xl border ${theme.border} border-l-4 ${theme.accentBorderL} bg-white transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${theme.borderHover}`}
+      className={`group flex flex-col overflow-hidden rounded-xl border ${theme.border} border-l-4 ${theme.accentBorderL} bg-white transition-colors duration-150 hover:shadow-sm ${theme.borderHover}`}
     >
       <Thumbnail
         image={post.image}

@@ -2,11 +2,12 @@ import { CATEGORY_LABELS, CATEGORY_THEME } from "@/lib/site";
 import type { Category } from "@/lib/types";
 
 const PLACEHOLDER_BG: Record<Category, string> = {
-  today: "bg-blue-100",
-  invest: "bg-green-100",
-  learn: "bg-purple-100",
-  terms: "bg-gray-100",
-  blog: "bg-orange-100",
+  news: "bg-slate-100",
+  study: "bg-slate-100",
+  case: "bg-slate-100",
+  terms: "bg-slate-100",
+  resource: "bg-slate-100",
+  standard: "bg-slate-100",
 };
 
 export function Thumbnail({
@@ -28,7 +29,7 @@ export function Thumbnail({
           src={image}
           alt={alt}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover"
         />
       </div>
     );

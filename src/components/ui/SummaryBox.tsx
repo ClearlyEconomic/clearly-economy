@@ -13,7 +13,7 @@ export function SummaryBox({
   return (
     <div className={`mb-10 rounded-xl border ${theme.softBorder} ${theme.soft} p-6`}>
       <p className={`text-xs font-bold uppercase tracking-wider ${theme.text}`}>
-        한눈에 보기
+        {"\u{1F4CB}"} 핵심 요약
       </p>
       <ul className="mt-3 space-y-2">
         {points.map((point) => (

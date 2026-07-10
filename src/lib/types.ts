@@ -1,4 +1,11 @@
-export const CATEGORIES = ["today", "learn", "invest", "terms", "blog"] as const;
+export const CATEGORIES = [
+  "news",
+  "study",
+  "case",
+  "terms",
+  "resource",
+  "standard",
+] as const;
 
 export type Category = (typeof CATEGORIES)[number];
 

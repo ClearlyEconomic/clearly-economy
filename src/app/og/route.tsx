@@ -5,11 +5,12 @@ import type { Category } from "@/lib/types";
 export const runtime = "edge";
 
 const ACCENT: Record<Category, string> = {
-  today: "#2563eb",
-  invest: "#16a34a",
-  learn: "#9333ea",
-  terms: "#4b5563",
-  blog: "#ea580c",
+  news: "#172554",
+  study: "#172554",
+  case: "#172554",
+  terms: "#172554",
+  resource: "#172554",
+  standard: "#172554",
 };
 
 async function loadNotoSansKrBold(text: string): Promise<ArrayBuffer> {
@@ -27,7 +28,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title = (searchParams.get("title") ?? SITE.name).slice(0, 80);
   const categoryParam = searchParams.get("category") as Category | null;
-  const color = categoryParam && ACCENT[categoryParam] ? ACCENT[categoryParam] : ACCENT.today;
+  const color = categoryParam && ACCENT[categoryParam] ? ACCENT[categoryParam] : ACCENT.news;
   const label = categoryParam ? CATEGORY_LABELS[categoryParam] : SITE.tagline;
 
   const fontData = await loadNotoSansKrBold(`${SITE.name}${label}${title}`);
@@ -60,7 +61,7 @@ export async function GET(request: Request) {
               fontSize: 26,
             }}
           >
-            분
+            서
           </div>
           <div style={{ fontSize: 26, color: "#0f172a" }}>{SITE.name}</div>
         </div>

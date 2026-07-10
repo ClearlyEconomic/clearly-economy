@@ -16,7 +16,7 @@ const notoSansKr = Noto_Sans_KR({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
+    default: `${SITE.name} | 철도기술 아카이브`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,

@@ -1,6 +1,6 @@
 export function SectionHeading({
   eyebrow,
-  eyebrowClassName = "text-blue-600",
+  eyebrowClassName = "text-blue-950",
   title,
   action,
 }: {

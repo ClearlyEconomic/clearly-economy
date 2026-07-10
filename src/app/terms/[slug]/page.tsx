@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getPostSlugs } from "@/lib/posts";
 import { generatePostMetadata } from "@/lib/post-metadata";
-import { PostDetail } from "@/components/PostDetail";
+import { TermDetail } from "@/components/terms/TermDetail";
 
 export function generateStaticParams() {
   return getPostSlugs("terms").map((slug) => ({ slug }));
@@ -22,5 +22,5 @@ export default async function TermsPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <PostDetail category="terms" slug={slug} />;
+  return <TermDetail slug={slug} />;
 }

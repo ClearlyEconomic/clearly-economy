@@ -8,7 +8,7 @@ export function PostRow({ post }: { post: PostMeta }) {
   return (
     <Link
       href={`/${post.category}/${post.slug}`}
-      className="group flex items-center gap-4 border-b border-slate-100 py-4 transition-all duration-200 hover:translate-x-1 hover:bg-slate-50 sm:rounded-lg sm:px-3"
+      className="group flex items-center gap-4 border-b border-slate-100 py-4 transition-colors duration-150 hover:bg-slate-50 sm:rounded-lg sm:px-3"
     >
       <Thumbnail
         image={post.image}

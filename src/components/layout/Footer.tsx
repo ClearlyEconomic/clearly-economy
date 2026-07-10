@@ -17,7 +17,7 @@ export default function Footer() {
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-500">
           {NAV_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-blue-600">
+            <Link key={item.href} href={item.href} className="hover:text-blue-950">
               {item.label}
             </Link>
           ))}
