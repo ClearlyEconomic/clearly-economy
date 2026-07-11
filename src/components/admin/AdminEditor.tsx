@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrayFieldEditor } from "./ArrayFieldEditor";
 import { DifficultyPicker } from "./DifficultyPicker";
 import { Toast, type ToastState } from "./Toast";
 import { LivePreview } from "./LivePreview";
 import { AIDraftButton } from "./AIDraftButton";
+import { ImageUploadButton } from "./ImageUploadButton";
 import { slugify, isValidSlugFormat } from "@/lib/admin/slugify";
 import { getBodyTemplate } from "@/lib/admin/templates";
 import { CATEGORY_LABELS, RAIL_TOPICS } from "@/lib/site";
@@ -78,6 +79,7 @@ export function AdminEditor({ initialCategory }: { initialCategory: Category }) 
   const [examPoints, setExamPoints] = useState<string[]>([""]);
   const [body, setBody] = useState(() => getBodyTemplate(initialCategory));
   const [bodyTouched, setBodyTouched] = useState(false);
+  const bodyTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   // terms 전용 필드
   const [english, setEnglish] = useState("");
@@ -242,6 +244,27 @@ export function AdminEditor({ initialCategory }: { initialCategory: Category }) 
     } finally {
       setSaving(false);
     }
+  }
+
+  function insertMarkdownIntoBody(markdown: string) {
+    const textarea = bodyTextareaRef.current;
+    setBodyTouched(true);
+
+    if (!textarea) {
+      setBody((prev) => `${prev}\n${markdown}\n`);
+      return;
+    }
+
+    const start = textarea.selectionStart ?? body.length;
+    const end = textarea.selectionEnd ?? body.length;
+    const next = `${body.slice(0, start)}\n${markdown}\n${body.slice(end)}`;
+    setBody(next);
+
+    const cursor = start + markdown.length + 2;
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.setSelectionRange(cursor, cursor);
+    });
   }
 
   return (
@@ -492,11 +515,14 @@ export function AdminEditor({ initialCategory }: { initialCategory: Category }) 
             onDone={() => {}}
           />
 
+          <ImageUploadButton category={category} onInsertMarkdown={insertMarkdownIntoBody} />
+
           <Field
             label="본문 (MDX)"
             helperText="카테고리를 바꾸면 해당 템플릿으로 다시 채워집니다 (직접 수정한 내용이 없을 때만). AI 초안 생성 후에도 자유롭게 수정할 수 있습니다."
           >
             <textarea
+              ref={bodyTextareaRef}
               value={body}
               onChange={(event) => {
                 setBodyTouched(true);
